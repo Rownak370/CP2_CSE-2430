@@ -3,26 +3,21 @@ using namespace std;
 int main() {
     int T;
     cin >> T;
-
     while (T--) {
         int N;
         cin >> N;
-        long long arr[N];
-        for (int i = 0; i < N; i++) cin >> arr[i];
+        int a[105];
+        for (int i = 0; i < N; i++) cin >> a[i];
 
-        long long min_i = arr[0] - 1;
-        long long answer = 1e18;
+        int minSum = INT_MAX;
+        for (int i = 0; i < N-1; i++) {
+            for (int j = i+1; j < N; j++) {
+                int sum = a[i] + a[j] + (j - i);
+                if (sum < minSum) minSum = sum;
+            }
+        }
 
-        for (int j = 1; j < N; j++) {
-            long long sum = min_i + arr[j] + (j + 1);
-            if (sum < answer) answer = sum;
-            if (arr[j] - (j + 1) < min_i)
-                min_i = arr[j] - (j + 1);
-
-        cout << answer << endl;
+        cout << minSum << endl;
     }
-    }
-
     return 0;
 }
-
